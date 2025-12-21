@@ -1,9 +1,8 @@
 const Campus = require('./Campus');
 const Student = require('./Student');
 
-// associations (later, but safe to add now)
-Campus.hasMany(Student);
-Student.belongsTo(Campus);
+Campus.hasMany(Student, { foreignKey: 'campusId' });
+Student.belongsTo(Campus, { foreignKey: 'campusId' });
 
 module.exports = {
   Campus,
