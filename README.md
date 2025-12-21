@@ -52,5 +52,5 @@ The frontend provides a user interface for managing campuses and students. It is
 
 ## Contributors
 - Name: Mokhinabonu Ubaydulloeva
-- Email: Mokhinabonu Ubaydulloeva
+- Email: Mokhinabonu.ubaydulloeva43@myhunter.cuny.edu
 - GitHub: [Mohiina](https://github.com/Mohiina)
