@@ -7,7 +7,9 @@ const { Student, Campus } = require('../db/models');
  */
 router.get('/', async (req, res, next) => {
   try {
-    const students = await Student.findAll();
+    const students = await Student.findAll({
+        order: [['lastName', 'ASC']]
+      });
     res.json(students);
   } catch (err) {
     next(err);
@@ -21,7 +23,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:studentId', async (req, res, next) => {
   try {
     const student = await Student.findByPk(req.params.studentId, {
-      include: Campus
+      include: {
+        model: Campus
+      }
     });
 
     if (!student) {
