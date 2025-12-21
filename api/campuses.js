@@ -38,4 +38,42 @@ router.get('/:campusId', async (req, res, next) => {
   }
 });
 
+/**
+ * POST /api/campuses
+ * creates a new campus
+ */
+router.post('/', async (req, res, next) => {
+    try {
+      const campus = await Campus.create(req.body);
+      res.status(201).json(campus);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // update campus
+router.put('/:campusId', async (req, res, next) => {
+    try {
+      const campus = await Campus.findByPk(req.params.campusId);
+      if (!campus) return res.status(404).send('Campus not found');
+      await campus.update(req.body);
+      res.json(campus);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  // delete campus
+  router.delete('/:campusId', async (req, res, next) => {
+    try {
+      const campus = await Campus.findByPk(req.params.campusId);
+      if (!campus) return res.status(404).send('Campus not found');
+      await campus.destroy();
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  
 module.exports = router;

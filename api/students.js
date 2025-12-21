@@ -3,7 +3,7 @@ const { Student, Campus } = require('../db/models');
 
 /**
  * GET /api/students
- * Returns all students
+ * returns all students
  */
 router.get('/', async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 
 /**
  * GET /api/students/:studentId
- * Returns one student + their campus
+ * returns one student + their campus
  */
 router.get('/:studentId', async (req, res, next) => {
   try {
@@ -37,5 +37,44 @@ router.get('/:studentId', async (req, res, next) => {
     next(err);
   }
 });
+
+/**
+ * POST /api/students
+ * creates a new student
+ */
+router.post('/', async (req, res, next) => {
+    try {
+      const student = await Student.create(req.body);
+      res.status(201).json(student);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // update student
+router.put('/:studentId', async (req, res, next) => {
+    try {
+      const student = await Student.findByPk(req.params.studentId);
+      if (!student) return res.status(404).send('Student not found');
+      await student.update(req.body);
+      res.json(student);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  // delete student
+  router.delete('/:studentId', async (req, res, next) => {
+    try {
+      const student = await Student.findByPk(req.params.studentId);
+      if (!student) return res.status(404).send('Student not found');
+      await student.destroy();
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  
 
 module.exports = router;
